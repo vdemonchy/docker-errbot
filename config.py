@@ -42,7 +42,7 @@ import logging
 # 'IRC'      - for classic IRC or bridged services like https://gitter.im
 # 'XMPP'
 
-BACKEND = os.environ.get('BACKEND', 'XMPP')
+BACKEND = os.environ.get('BACKEND', 'Slack')
 
 # The location where all of Err's data should be stored. Make sure to set
 # this to a directory that is writable by the user running the bot.
@@ -136,7 +136,7 @@ if 'BOT_SSL' in os.environ:
     BOT_IDENTITY['ssl'] = os.environ['BOT_SSL']
 
 # The identity, or credentials, used to connect to a server
-# BOT_IDENTITY = {
+BOT_IDENTITY = {
     # XMPP (Jabber) mode
     # 'username': 'err@localhost',  # The JID of the user you have created for the bot
     # 'password': 'changeme',       # The corresponding password for this user
@@ -154,7 +154,7 @@ if 'BOT_SSL' in os.environ:
     # 'endpoint' : 'https://api.hipchat.com'
 
     ## Slack Mode (comment the others above if using this mode)
-    # 'token': 'xoxb-4426949411-aEM7...',
+    'token': 'INSERT_TOKEN_HERE',
 
     ## IRC mode (Comment the others above if using this mode)
     # 'nickname' : 'err-chatbot',
@@ -163,7 +163,7 @@ if 'BOT_SSL' in os.environ:
     # 'server' : 'irc.freenode.net',
     # 'port': 6667,                  # optional
     # 'ssl': False,                  # optional
-# }
+}
 
 ## TOX Mode
 # TOX_BOOTSTRAP_SERVER = ["54.199.139.199", 33445, "7F9C31FE850E97CEFD4C4591DF93FC757C7C12549DDD55F8EEAECC34FE76C029"]
@@ -177,16 +177,17 @@ if 'BOT_SSL' in os.environ:
 # TOX syntax is a hash.
 # BOT_ADMINS = ['F9886B47503FB80E6347CC0907D8000144305796DE54693253AA5E574E5E8106C7D002557189', ]
 BOT_ADMINS = tuple(
-    os.environ.get('BOT_ADMINS', 'admin@localhost').split(','),
+    os.environ.get('BOT_ADMINS', '@victor').split(','),
 )
 # Chatrooms your bot should join on startup. For the IRC backend you
 # should include the # sign here. For XMPP rooms that are password
 # protected, you can specify another tuple here instead of a string,
 # using the format (RoomName, Password).
-CHATROOM_PRESENCE = tuple(
-    os.environ.get('CHATROOM_PRESENCE',
-                   'err@conference.localhost').split(','),
-)
+CHATROOM_PRESENCE = ()
+#CHATROOM_PRESENCE = tuple(
+#    os.environ.get('CHATROOM_PRESENCE',
+#                   'err@conference.localhost').split(','),
+#)
 # The FullName, or nickname, your bot should use. What you set here will
 # be the nickname that Err shows in chatrooms. Note that some XMPP
 # implementations, notably HipChat, are very picky about what name you
@@ -261,7 +262,7 @@ BOT_ALT_PREFIX_CASEINSENSITIVE = bool(
 # be found inside ACCESS_CONTROLS
 #
 # Example:
-#ACCESS_CONTROLS_DEFAULT = {} # Allow everyone access by default
+ACCESS_CONTROLS_DEFAULT = {'allowusers': ('@victor',)} # Allow some users to access by default
 #ACCESS_CONTROLS = {'status': {'allowrooms': ('someroom@conference.localhost',)},
 #                   'about': {'denyusers': ('baduser@localhost',), 'allowrooms': ('room1@conference.localhost', 'room2@conference.localhost')},
 #                   'uptime': {'allowusers': BOT_ADMINS},
