@@ -55,4 +55,7 @@ COPY run.sh /app/venv/bin/run.sh
 EXPOSE 3141 3142
 VOLUME ["/srv"]
 
+# Fix for python >=3.4
+RUN sed -i s/\.decode\(\'utf-8\'\)//g /app/venv/lib/python3.4/site-packages/errbot/backends/slack.py
+
 CMD ["/app/venv/bin/run.sh"]
